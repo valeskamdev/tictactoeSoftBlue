@@ -11,6 +11,7 @@ public class Game {
     public void play() {
 
         UI.printGameTitle();
-        UI.readInput("Nome do jogador:");
+        board.print();
+      //  UI.readInput("Nome do jogador:");
     }
 }
