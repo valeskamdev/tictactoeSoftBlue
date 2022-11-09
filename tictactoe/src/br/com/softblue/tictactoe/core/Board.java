@@ -62,23 +62,26 @@ public class Board {
     Parâmetros:
     jogador - o jogador que está jogando o movimento
     movimento – o movimento que o jogador quer fazer */
-    public boolean play(Player player, Move move) {
+    public boolean play(Player player, Move move) throws InvalidNumberException {
 
-        int linha = move.getLinha();  // obtendo o valor da linha do "move".
-        int coluna = move.getColuna();  // obtendo o valor da coluna do "move".
+        try {
+            int linha = move.getLinha();  // obtendo o valor da linha do "move"
+            int coluna = move.getColuna();  // obtendo o valor da coluna do "move"
 
-        //TODO validar os movimentos
+            matrix[linha][coluna] = player.getSymbol();  // colocando um simbolo na posicao desejada do jogador
 
-        matrix[linha][coluna] = player.getSymbol();  // colocando um simbolo na posicao desejada do jogador
+            //essa anotação abaixo serve como marcação para criar tasks para não esquecer
+            //TODO checar se o ganhador ganhou
+            //task finalizada, mas vou deixar aqui para fins de estudos posteriores
 
-        //essa anotação abaixo serve como marcação para criar tasks para não esquecer
-        //TODO checar se o ganhador ganhou
-        //task finalizada, mas vou deixar aqui para fins de estudos posteriores
-
-        // verificar se o jogador ganhou em alguma linha, coluna ou diagonal
-        return checkRows(player) || checkCols(player) || checkDiagonal1(player) || checkDiagonal2(player);
+            // verificar se o jogador ganhou em alguma linha, coluna ou diagonal
+            return checkRows(player) || checkCols(player) || checkDiagonal1(player) || checkDiagonal2(player);
+        } catch (Exception e) {
+            throw new InvalidNumberException("Posição inválida");
+        }
     }
 
+    // verificando se todos os símbolos na linha sao iguais ao símbolo do jogador
     private boolean checkRow(int linha, Player player) {
         char symbol = player.getSymbol();  // obtendo o símbolo do jogador
 
@@ -103,6 +106,7 @@ public class Board {
         return false;
     }
 
+    // verificando se todos os símbolos na coluna sao iguais ao símbolo do jogador
     private boolean checkCol(int coluna, Player player) {
         char symbol = player.getSymbol();  // obtendo o símbolo do jogador
 

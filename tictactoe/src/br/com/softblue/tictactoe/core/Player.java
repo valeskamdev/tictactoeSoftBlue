@@ -39,12 +39,12 @@ public class Player {
     }
 
     // alterado para private pq somente a própria classe Player pode acessar
-    private Move inputMove() {
+    private Move inputMove() throws InvalidMoveException {
        String moveStr = UI.readInput("Jogador " + name + " -> ");
         return new Move(moveStr);
     }
 
-    public boolean play() {
+    public boolean play() throws InvalidMoveException, InvalidNumberException {
        Move move = inputMove();
        return board.play(this, move);  // chamando o método da classe Board e passando o jogador atual e o movimento como parâmetros
     }

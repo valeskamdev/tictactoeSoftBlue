@@ -25,26 +25,34 @@ public class Game {
         //  loop que será executado até o jogo terminar
         while(!gameEnded) {
             board.print();
+            boolean sequenceFound;
 
-            boolean sequenceFound = currentPlayer.play();
+            try {
+                sequenceFound = currentPlayer.play();
 
-            if(sequenceFound) {  // verificando se tem uma sequencia de simbolos
-                gameEnded = true;  // encerrará o jogo
-                winner = currentPlayer;  // atribuindo o vencedor ao jogador atual
-            }else if (board.isFull()) {  // verificando se o jogo esta cheio
-                gameEnded = true;  // encerrará o jogo
-            }else { // movimentos para jogar
-                currentPlayer = nextPlayer(); // passando para o proximo jogador
+                if (sequenceFound) {  // verificando se tem uma sequencia de simbolos
+                    gameEnded = true;  // encerrará o jogo
+                    winner = currentPlayer;  // atribuindo o vencedor ao jogador atual
+                } else if (board.isFull()) {  // verificando se o jogo esta cheio
+                    gameEnded = true;  // encerrará o jogo
+                } else { // movimentos para jogar
+                    currentPlayer = nextPlayer(); // passando para o proximo jogador
+                }
+            } catch (InvalidMoveException e) {
+                UI.printText("ERRO: " + e.getMessage());  // imprimindo a mensagem de erro
+                continue;  // diz ao programa para pular o resto do código no loop e voltar ao início do laço (while)
+            } catch (InvalidNumberException e) {
+                UI.printText("ERRO: " + e.getMessage());  // imprimindo a mensagem de erro
+                continue;
             }
         }
-
-        if(winner ==  null) {  // verificando se nao tem vencedores
+       if(winner ==  null) {  // verificando se nao tem vencedores
             UI.printText("EMPATE!");  // se nao tiver, empate
         }else {
             UI.printText("O jogador " + "'" + winner.getName() + "'" + " venceu o jogo!"); // se tiver, mostra vencedor
         }
         board.print();
-        UI.printText("FIM DO JOGO!");
+        UI.printText("FIM DE JOGO!");
     }
 
     // criando jogador
