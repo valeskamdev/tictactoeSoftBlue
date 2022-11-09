@@ -38,6 +38,7 @@ public class Player {
         this.symbol = symbol;
     }
 
+    // alterado para private pq somente a própria classe Player pode acessar
     private Move inputMove() {
        String moveStr = UI.readInput("Jogador " + name + " -> ");
         return new Move(moveStr);

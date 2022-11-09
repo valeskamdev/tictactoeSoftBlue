@@ -67,11 +67,89 @@ public class Board {
         int linha = move.getLinha();  // obtendo o valor da linha do "move".
         int coluna = move.getColuna();  // obtendo o valor da coluna do "move".
 
+        //TODO validar os movimentos
+
         matrix[linha][coluna] = player.getSymbol();  // colocando um simbolo na posicao desejada do jogador
 
         //essa anotação abaixo serve como marcação para criar tasks para não esquecer
         //TODO checar se o ganhador ganhou
+        //task finalizada, mas vou deixar aqui para fins de estudos posteriores
 
+        // verificar se o jogador ganhou em alguma linha, coluna ou diagonal
+        return checkRows(player) || checkCols(player) || checkDiagonal1(player) || checkDiagonal2(player);
+    }
+
+    private boolean checkRow(int linha, Player player) {
+        char symbol = player.getSymbol();  // obtendo o símbolo do jogador
+
+        for (int coluna = 0; coluna < Constantes.BOARD_SIZE; coluna++) {
+
+            // verificando se cada símbolo na linha é diferente do símbolo do jogador
+           if(matrix[linha][coluna] != symbol) {
+               return false;
+           }
+       }
+        return true;
+    }
+
+    // verificando se o jogador ganhou em alguma linha
+    private boolean checkRows(Player player) {
+
+        for(int linha = 0; linha < Constantes.BOARD_SIZE; linha++) {
+            if (checkRow(linha, player)) {
+                return true;
+            }
+        }
         return false;
+    }
+
+    private boolean checkCol(int coluna, Player player) {
+        char symbol = player.getSymbol();  // obtendo o símbolo do jogador
+
+        for (int linha = 0; linha < Constantes.BOARD_SIZE; linha++) {
+
+            // verificando se cada símbolo na coluna é diferente do símbolo do jogador
+            if(matrix[linha][coluna] != symbol) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // verificando se o jogador ganhou em alguma coluna
+    private boolean checkCols(Player player) {
+
+        for(int coluna = 0; coluna < Constantes.BOARD_SIZE; coluna++) {
+            if(checkRow(coluna, player)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // verificando se o jogador ganhou na primeira diagonal
+    private boolean checkDiagonal1(Player player) {
+        char symbol = player.getSymbol();  // obtendo o símbolo do jogador
+
+        for (int i = 0; i < Constantes.BOARD_SIZE; i++) {
+            if(matrix[i][i] != symbol) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // verificando se o jogador ganhou na segunda diagonal
+    private boolean checkDiagonal2(Player player) {
+        char symbol = player.getSymbol(); // obtendo o símbolo do jogador
+        int lastLine = Constantes.BOARD_SIZE - 1;
+
+        //loop for que começa na última linha e na primeira coluna e vai até a primeira linha e a última coluna
+        for(int linha = lastLine, coluna = 0; linha >= 0; linha--, coluna++) {
+            if(matrix[linha][coluna] != symbol) {
+                return false;
+            }
+        }
+        return true;
     }
 }
