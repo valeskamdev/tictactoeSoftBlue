@@ -44,9 +44,8 @@ public class Player {
         return new Move(moveStr);
     }
 
-    public boolean play() throws InvalidMoveException, InvalidNumberException {
+    public boolean play() throws InvalidMoveException {
        Move move = inputMove();
        return board.play(this, move);  // chamando o método da classe Board e passando o jogador atual e o movimento como parâmetros
     }
-
 }

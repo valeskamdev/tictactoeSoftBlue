@@ -41,9 +41,6 @@ public class Game {
             } catch (InvalidMoveException e) {
                 UI.printText("ERRO: " + e.getMessage());  // imprimindo a mensagem de erro
                 continue;  // diz ao programa para pular o resto do código no loop e voltar ao início do laço (while)
-            } catch (InvalidNumberException e) {
-                UI.printText("ERRO: " + e.getMessage());  // imprimindo a mensagem de erro
-                continue;
             }
         }
        if(winner ==  null) {  // verificando se nao tem vencedores

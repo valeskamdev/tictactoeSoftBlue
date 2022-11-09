@@ -15,7 +15,7 @@ public class Move {
             this.coluna = Integer.parseInt(tokens[1]);
 
         } catch (Exception e) {
-            throw new InvalidMoveException("Jogada inválida");
+            throw new InvalidMoveException("Jogada inválida");  // lançando uma exceção se a jogada for inválida
         }
     }
 

@@ -62,11 +62,18 @@ public class Board {
     Parâmetros:
     jogador - o jogador que está jogando o movimento
     movimento – o movimento que o jogador quer fazer */
-    public boolean play(Player player, Move move) throws InvalidNumberException {
+    public boolean play(Player player, Move move) throws  InvalidMoveException{
 
-        try {
             int linha = move.getLinha();  // obtendo o valor da linha do "move"
             int coluna = move.getColuna();  // obtendo o valor da coluna do "move"
+
+            if (linha < 0 || coluna < 0 || linha >= Constantes.BOARD_SIZE || coluna >= Constantes.BOARD_SIZE) {
+                throw new InvalidMoveException("Posição inválida"); // lançando uma exceção se a posicao for inválida
+            }
+
+            if (matrix[linha][coluna] != ' ') {
+                throw new InvalidMoveException("Esta jogada ja foi realizada");  // lançando uma exceção se a jogada ja foi realizada
+            }
 
             matrix[linha][coluna] = player.getSymbol();  // colocando um simbolo na posicao desejada do jogador
 
@@ -76,9 +83,7 @@ public class Board {
 
             // verificar se o jogador ganhou em alguma linha, coluna ou diagonal
             return checkRows(player) || checkCols(player) || checkDiagonal1(player) || checkDiagonal2(player);
-        } catch (Exception e) {
-            throw new InvalidNumberException("Posição inválida");
-        }
+
     }
 
     // verificando se todos os símbolos na linha sao iguais ao símbolo do jogador
