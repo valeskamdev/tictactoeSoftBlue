@@ -7,7 +7,7 @@ public class Game {
 
     private Board board = new Board();
     private Player[] players = new Player[Constantes.SYMBOL_PLAYERS.length];  // definindo o numero de jogadores pela quantidade de simbolos
-    private int currentPlayerIndex = 0; // indice do jogador atual
+    private int currentPlayerIndex = -1; // indice do jogador atual
 
     public void play() {
 
@@ -17,6 +17,34 @@ public class Game {
         for (int i = 0; i < players.length; i++) {
             players[i] = createPlayer(i);
         }
+
+        boolean gameEnded = false;  // indicar se o jogo terminou ou nao
+        Player currentPlayer = nextPlayer();  // retorna proximo jogador
+        Player winner = null;  // vencedor
+
+        //  loop que será executado até o jogo terminar
+        while(!gameEnded) {
+            board.print();
+
+            boolean sequenceFound = currentPlayer.play();
+
+            if(sequenceFound) {  // verificando se tem uma sequencia de simbolos
+                gameEnded = true;  // encerrará o jogo
+                winner = currentPlayer;  // atribuindo o vencedor ao jogador atual
+            }else if (board.isFull()) {  // verificando se o jogo esta cheio
+                gameEnded = true;  // encerrará o jogo
+            }else { // movimentos para jogar
+                currentPlayer = nextPlayer(); // passando para o proximo jogador
+            }
+        }
+
+        if(winner ==  null) {  // verificando se nao tem vencedores
+            UI.printText("EMPATE!");  // se nao tiver, empate
+        }else {
+            UI.printText("O jogador " + "'" + winner.getName() + "'" + " venceu o jogo!"); // se tiver, mostra vencedor
+        }
+        board.print();
+        UI.printText("FIM DO JOGO!");
     }
 
     // criando jogador

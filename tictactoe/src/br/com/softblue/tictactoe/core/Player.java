@@ -44,9 +44,9 @@ public class Player {
         return new Move(moveStr);
     }
 
-    public void play() {
+    public boolean play() {
        Move move = inputMove();
-       board.play(this, move);  // chamando o método da classe Board e passando o jogador atual e o movimento como parâmetros
+       return board.play(this, move);  // chamando o método da classe Board e passando o jogador atual e o movimento como parâmetros
     }
 
 }
