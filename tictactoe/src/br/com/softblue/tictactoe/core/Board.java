@@ -5,13 +5,13 @@ import br.com.softblue.tictactoe.ui.UI;
 
 public class Board {
 
-    char[][] matrix = new char[Constantes.BOARD_SIZE][Constantes.BOARD_SIZE];  // definindo o tamanho de linhas e colunas pela constante BOARD_SIZE(3)
+    private char[][] matrix = new char[Constantes.BOARD_SIZE][Constantes.BOARD_SIZE];  // definindo o tamanho de linhas e colunas pela constante BOARD_SIZE(3)
 
     public Board() {
         clear();
     }
 
-    // percorre a matriz e limpa/remove a cada elemento
+    //percorre o array "limpando" os símbolos e inserindo espaços em branco
     public void clear() {
 
         for (int linha = 0; linha < matrix.length; linha++) {
@@ -21,28 +21,29 @@ public class Board {
         }
     }
 
-    // imprime a matriz, com uma barra vertical (|) entre as colunas e uma linha horizontal entre as linhas
+    //percorre a matriz imprimindo o símbolo + pipe + linha tracejada
     public void print() {
         UI.printNewLine();
         for (int linha = 0; linha < matrix.length; linha++) {
             for (int coluna = 0; coluna < matrix[linha].length; coluna++) {
                 UI.printTextWithNoNewLine(String.valueOf(matrix[linha][coluna]));  // convertendo char para String
 
-                //  imprimindo um pipe(barra vertical) para separar os simbolos
+                // se for a última coluna (coluna 3), não imprime o pipe
                 if (coluna < matrix[linha].length - 1) {
                     UI.printTextWithNoNewLine(" | ");
                 }
             }
+            //quebra de linha após preenchimento da linha atual
             UI.printNewLine();
 
-            // imprimindo duas linhas para separar os pipe's
+            //se for a última linha (linha 3) não imprime a linha tracejada
             if (linha < matrix.length - 1) {
                 UI.printText("----------");
             }
         }
     }
 
-    // retorna true se a matriz estiver cheia e alse se não estiver
+    //valida se o tabuleiro está cheio
     public boolean isFull() {
 
         for (int linha = 0; linha < matrix.length; linha++) {
@@ -63,12 +64,14 @@ public class Board {
     movimento – o movimento que o jogador quer fazer */
     public boolean play(Player player, Move move) {
 
-        int linha = move.linha;  // obtendo o valor da linha do "move".
-        int coluna = move.coluna;  // obtendo o valor da coluna do "move".
+        int linha = move.getLinha();  // obtendo o valor da linha do "move".
+        int coluna = move.getColuna();  // obtendo o valor da coluna do "move".
 
-        matrix[linha][coluna] = player.symbol;  // colocando um simbolo na posicao desejada do jogador
+        matrix[linha][coluna] = player.getSymbol();  // colocando um simbolo na posicao desejada do jogador
 
+        //essa anotação abaixo serve como marcação para criar tasks para não esquecer
         //TODO checar se o ganhador ganhou
+
         return false;
     }
 }

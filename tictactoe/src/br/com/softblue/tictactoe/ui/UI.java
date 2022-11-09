@@ -4,6 +4,9 @@ import java.util.Scanner;
 
 public class UI {
 
+    /* se eu coloco static, não preciso de objeto para chamar o método, pois pertence a classe
+    se não colocar static, o método é do objeto, então precisa criar um objeto antes para chamar o método */
+
     // método que pula linha
     public static void printText(String text) {
         System.out.println(text);
