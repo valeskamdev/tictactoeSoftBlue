@@ -1,10 +1,18 @@
 package br.com.softblue.tictactoe.core;
 
+import br.com.softblue.tictactoe.ui.UI;
 public class Player {
 
     private String name;
     private Board board;
     private char symbol;
+
+    // construtor que recebe tres parametros
+    public Player(String name, Board board, char symbol) {
+        this.name = name;  // this = faz referencia ao atributo
+        this.board = board;
+        this.symbol = symbol;
+    }
 
     public String getName() {
         return name;
@@ -30,12 +38,14 @@ public class Player {
         this.symbol = symbol;
     }
 
-    public Move inputMove() {
-        return null;
+    private Move inputMove() {
+       String moveStr = UI.readInput("Jogador " + name + " -> ");
+        return new Move(moveStr);
     }
 
     public void play() {
-
+       Move move = inputMove();
+       board.play(this, move);  // chamando o método da classe Board e passando o jogador atual e o movimento como parâmetros
     }
 
 }
