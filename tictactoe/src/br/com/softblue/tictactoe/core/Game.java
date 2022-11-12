@@ -1,8 +1,11 @@
 package br.com.softblue.tictactoe.core;
 
 import br.com.softblue.tictactoe.Constantes;
+import br.com.softblue.tictactoe.score.FileScoreManager;
 import br.com.softblue.tictactoe.score.ScoreManager;
 import br.com.softblue.tictactoe.ui.UI;
+
+import java.io.IOException;
 
 public class Game {
 
@@ -11,7 +14,7 @@ public class Game {
     private int currentPlayerIndex = -1; // indice do jogador atual
     private ScoreManager scoreManager;
 
-    public void play() {
+    public void play() throws IOException {
 
         scoreManager = createScoreMenager(); // criando um  objeto ScoreManager
 
@@ -95,8 +98,7 @@ public class Game {
 
     }
 
-    private ScoreManager createScoreMenager() {
-        //TODO retornar tipo correto
-        return null;
+    private ScoreManager createScoreMenager() throws IOException {
+        return new FileScoreManager();
     }
 }

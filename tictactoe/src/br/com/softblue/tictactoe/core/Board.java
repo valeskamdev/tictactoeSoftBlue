@@ -129,7 +129,7 @@ public class Board {
     private boolean checkCols(Player player) {
 
         for(int coluna = 0; coluna < Constantes.BOARD_SIZE; coluna++) {
-            if(checkRow(coluna, player)) {
+            if(checkCol(coluna, player)) {
                 return true;
             }
         }
