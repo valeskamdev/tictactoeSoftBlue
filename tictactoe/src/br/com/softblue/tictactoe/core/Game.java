@@ -1,6 +1,7 @@
 package br.com.softblue.tictactoe.core;
 
 import br.com.softblue.tictactoe.Constantes;
+import br.com.softblue.tictactoe.score.ScoreManager;
 import br.com.softblue.tictactoe.ui.UI;
 
 public class Game {
@@ -8,8 +9,11 @@ public class Game {
     private Board board = new Board();
     private Player[] players = new Player[Constantes.SYMBOL_PLAYERS.length];  // definindo o numero de jogadores pela quantidade de simbolos
     private int currentPlayerIndex = -1; // indice do jogador atual
+    private ScoreManager scoreManager;
 
     public void play() {
+
+        scoreManager = createScoreMenager(); // criando um  objeto ScoreManager
 
         UI.printGameTitle();
 
@@ -47,6 +51,8 @@ public class Game {
             UI.printText("EMPATE!");  // se nao tiver, empate
         }else {
             UI.printText("O jogador " + "'" + winner.getName() + "'" + " venceu o jogo!"); // se tiver, mostra vencedor
+
+           scoreManager.saveScore(winner);  // salvando a pontuação do vencedor
         }
         board.print();
         UI.printText("FIM DE JOGO!");
@@ -58,6 +64,14 @@ public class Game {
         String name = UI.readInput("Jogador " + (index + 1) + " ->");
         char symbol = Constantes.SYMBOL_PLAYERS[index];
         Player player = new Player(name, board, symbol );  // criando um novo jogador com o nome, tabuleiro e símbolo
+
+        Integer score = scoreManager.getScore(player);  // obtendo a pontuação do jogador
+
+        // imprimindo a pontuação do jogador
+        if (score != null) {
+            UI.printText("O jogador " + player.getName() + " já possui " + score + " vitória(s)!");
+        }
+
         UI.printText("O jogador " + "'" + name + "'" + " vai usar o símbolo " + "'" + symbol + "'");
         return player;
     }
@@ -79,5 +93,10 @@ public class Game {
            jogadorAtual = (jogadorAtual +1) % players.length;
            return players[jogadorAtual]; */
 
+    }
+
+    private ScoreManager createScoreMenager() {
+        //TODO retornar tipo correto
+        return null;
     }
 }
